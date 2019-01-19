@@ -25,4 +25,18 @@ LOCAL_LDLIBS := -llog -latomic
 LOCAL_STATIC_LIBRARIES := fb
 
 include $(BUILD_SHARED_LIBRARY)
+
+
+  #变量的初始化操作  特点 不会重新初始化LOCAL_PATH的变量
+   include $(CLEAR_VARS)
+
+#libhello.so   加上lib前缀， .so后缀 都是makefile的语法约定的
+   LOCAL_MODULE    := Hello
+   LOCAL_SRC_FILES := Hello1.cpp \
+                      Student.cpp
+ #c语言的log日志库
+   LOCAL_LDLIBS += -llog
+   include $(BUILD_SHARED_LIBRARY)
+
+
 include $(MAIN_LOCAL_PATH)/fb/Android.mk
