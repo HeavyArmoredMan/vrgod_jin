@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.app360.app360"
+    android:versionCode="30"
+    android:versionName="30.0">
+
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_ACTIVITY_STACKS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Include required permissions for Google Mobile Ads to run -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACTIVITY_STACKS" />
+
+    <application
+        android:name="io.virtualapp.VApp"
+        android:allowBackup="true"
+        android:debuggable="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="io.virtualapp.splash.SplashActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="io.virtualapp.home.HomeActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/UITheme" />
+        <activity
+            android:name="io.virtualapp.home.ListAppActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/UITheme" />
+        <activity
+            android:name="io.virtualapp.home.LoadingActivity"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:screenOrientation="landscape"
+            android:taskAffinity="va.task.loading"
+            android:theme="@style/TransparentTheme" />
+        <activity
+            android:name="com.hmct.screencapture.VRMainActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/app_name"
+            android:process="com.task.vrmode"
+            android:taskAffinity="task.vrmode"
+            android:theme="@style/TransparentTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN1" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.nibiru.lib.controller.VRTipActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.nibiru.lib.controller.InfoActivity"
+            android:configChanges="orientation|screenLayout|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+
+        <service
+            android:name="com.nibiru.lib.utils.NibiruControllerService"
+            android:process=":controller">
+            <intent-filter>
+                <action android:name="com.nibiru.controller.service" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.nitro888.nitroaction360.KeyDispatchService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.hmct.keydispatch" />
+            </intent-filter>
+        </service>
+        <service android:name="com.hmct.screencapture.FloatingWindowService"></service>
+
+        <activity
+            android:name="com.nitro888.nitroaction360.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:taskAffinity="com.vrmode"
+            android:theme="@style/VRAppTheme"></activity>
+        <activity
+            android:name="com.nitro888.nitroaction360.AboutActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/UITheme"></activity>
+        <activity
+            android:name="com.app360.app360.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"></activity>
+        <activity android:name="com.app360.app360.wxapi.WXPayActivity"></activity>
+    </application>
+
+</manifest>

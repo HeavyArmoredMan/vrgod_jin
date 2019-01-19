@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:padding="20dp"
+    tools:context="com.nitro888.nitroaction360.AboutActivity">
+
+    <TextView
+        android:id="@+id/about_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="APP2VR是一款将任意软件界面转换为VR剧场模式的虚拟现实引擎系统，转换VR剧场模式后，通过佩戴VR眼镜进行观赏，可以将IMAX巨屏展示在用户眼前，通过提供电影院屏幕级视野，用户可以获取震撼的感官体验。 软件使用说明 打开软件后，软件列出所有手机中安装的应用软件，其中暗色的图标表示该软件还未进行VR剧场模式转换，亮色的图标表示该软件已经进行了VR剧场模式的转换，打开后可以直接使用。 打开亮色的图标，可以启动该软件，打开软件后，进入需要转换成VR剧场模式的界面，一般为全屏的播放界面。下拉状态栏，点击通知栏中的“虚拟现实模式”通知，进入剧场模式。进入剧场模式后，可以通过音量上下键调整虚拟屏幕的大小。"
+        android:textSize="20sp" />
+
+    <TextView
+        android:paddingTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/about_textview"
+        android:text="联系开发者。。。"
+        android:textSize="20sp" />
+</RelativeLayout>
