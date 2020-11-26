@@ -17,6 +17,7 @@
 package com.hmct.screencapture;
 
 import java.lang.ref.WeakReference;
+
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
@@ -43,50 +44,54 @@ import com.app360.app360.R;
  */
 public class VRMainActivity extends FragmentActivity {
 
-    public static final String TAG = "MainActivity";
+  public static final String TAG = "MainActivity";
 
-    // Whether the Log Fragment is currently shown
-    private boolean mLogShown;
-    
-    
-	public int getStatusBarHeight() {
-		int result = 0;
-		int resourceId = getResources().getIdentifier("status_bar_height",
-				"dimen", "android");
-		if (resourceId > 0) {
-			result = getResources().getDimensionPixelSize(resourceId);
-		}
-		return result;
-	}
-	private static WeakReference<Activity> mAct;
-	public static void finishActivity(){
-		if(mAct != null  && mAct.get() != null){
-			mAct.get().finish();
-		}
-	}
+  // Whether the Log Fragment is currently shown
+  private boolean mLogShown;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mAct = new WeakReference<Activity>(this);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,  
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);  
-        setContentView(R.layout.activity_main);
 
-        if (savedInstanceState == null) {
-            FragmentTransaction transaction = getSupportFragmentManager()
-                    .beginTransaction();
-            ScreenCaptureFragment fragment = new ScreenCaptureFragment();
-            transaction.replace(R.id.sample_content_fragment, fragment);
-            transaction.commit();
-        }
-        getWindow().setGravity(Gravity.RIGHT);
-        getWindow().setLayout(getResources().getDisplayMetrics().widthPixels,getResources().getDisplayMetrics().heightPixels + getStatusBarHeight());
-        if (VRMainActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Log.v(TAG, "is port we return");
-            
-            //MainActivity.this.finish();
-        }
-        // getActionBar().hide();
+  public int getStatusBarHeight() {
+    int result = 0;
+    int resourceId = getResources().getIdentifier("status_bar_height",
+        "dimen", "android");
+    if (resourceId > 0) {
+      result = getResources().getDimensionPixelSize(resourceId);
     }
+    return result;
+  }
+
+  private static WeakReference<Activity> mAct;
+
+  public static void finishActivity() {
+    if (mAct != null && mAct.get() != null) {
+      mAct.get().finish();
+    }
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    mAct = new WeakReference<Activity>(this);
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    setContentView(R.layout.activity_main);
+
+    if (savedInstanceState == null) {
+      FragmentTransaction transaction = getSupportFragmentManager()
+          .beginTransaction();
+      ScreenCaptureFragment fragment = new ScreenCaptureFragment();
+      transaction.replace(R.id.sample_content_fragment, fragment);
+      transaction.commit();
+    }
+    getWindow().setGravity(Gravity.RIGHT);
+    getWindow().setLayout(getResources().getDisplayMetrics().widthPixels,
+        getResources().getDisplayMetrics().heightPixels + getStatusBarHeight());
+    if (VRMainActivity.this.getResources().getConfiguration().orientation ==
+        Configuration.ORIENTATION_PORTRAIT) {
+      Log.v(TAG, "is port we return");
+
+      //MainActivity.this.finish();
+    }
+    // getActionBar().hide();
+  }
 }

@@ -470,8 +470,6 @@ public final class AppInstrumentation extends InstrumentationDelegate implements
             aci.receiver = receiver;
             activity.getWindow().getDecorView().setTag(aci);
         }
-
-
     }
 
     @Override

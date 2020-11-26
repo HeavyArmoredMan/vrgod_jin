@@ -56,100 +56,102 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MMActivity extends Activity {
-	public static GLSurfaceView glView; // Use GLSurfaceView
-    Random rnd = new Random();
-    MyGLRender mRender = new MyGLRender(this);
-    
-   
-    public class MyInvocationHandler implements InvocationHandler {  
-       
-        Object target;
-        private EGLConfig mEGLConfig;
-        int frameount = 0;
-        MyInvocationHandler(Object t ) {  
-            super();  
-            target = t;
-        }  
-      
-        @Override  
-        public Object invoke(Object o, Method method, Object[] args) throws Throwable {  
-        	Log.i("gl","++++++after " + method.getName() + "++++++");  
-        	if("onSurfaceCreated".equals(method.getName())){  
-        		mEGLConfig = (EGLConfig) args[1];
-        		
-        		 method.invoke(target,args);  
-        	}
-        	if("onSurfaceChanged".equals(method.getName())){  
-        		//GLRecorder.init(720, 1080, mEGLConfig);
-        		//GLRecorder.setRecordOutputFile("/sdcard/glrecord.mp4");  
-        		//GLRecorder.startRecording();
-        		 method.invoke(target,args);  
-        	}
-            if("onDrawFrame".equals(method.getName())){  
-            	frameount ++;
-                //GLRecorder.beginDraw();
-            	//GLES20.glViewport(0, 0, 100, 100);
-                Object result = method.invoke(target,args);  
-                //GLRecorder.endDraw();
-                
-                if(frameount > 1000){
-                	//GLRecorder.stopRecording();
-                }
-                return result;  
-            }else{  
-                Object result = method.invoke(target,args);  
-                return result;  
-            }  
-      
-        }  
-    }  
-    
+  public static GLSurfaceView glView; // Use GLSurfaceView
+  Random rnd = new Random();
+  MyGLRender mRender = new MyGLRender(this);
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO 自动生成的方法存�?
-		super.onCreate(savedInstanceState);
-		setTheme(android.R.style.Theme_Translucent_NoTitleBar);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        glView = new GLSurfaceView(this); // Allocate a GLSurfaceView
-        
-        
-        GLSurfaceView.Renderer rd = mRender;
-		InvocationHandler invocationHandler = new MyInvocationHandler(rd);  
-		GLSurfaceView.Renderer rdset = (GLSurfaceView.Renderer)Proxy.newProxyInstance(rd.getClass().getClassLoader(),  
-                rd.getClass().getInterfaces(), invocationHandler);  
-		glView.setRenderer(rdset); // Use a custom renderer
-        glView.getAlpha();
-        glView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
-        this.setContentView(glView); 
-        
-        
-	}
 
-	@Override
-	protected void onResume() {
-		// TODO
-		super.onResume();
-		glView.onResume();
+  public class MyInvocationHandler implements InvocationHandler {
 
-	}
+    Object target;
+    private EGLConfig mEGLConfig;
+    int frameount = 0;
 
-	@Override
-	protected void onDestroy() {
-		// TODO
-		
-		super.onDestroy();
-	}
+    MyInvocationHandler(Object t) {
+      super();
+      target = t;
+    }
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		
-		Intent myIntent = new Intent();
-		myIntent.setClass(MMActivity.this, MainActivity.class);
-		myIntent.putExtra("type", "vr_mode");
-		startActivity(myIntent);
-		
-		return super.onKeyDown(keyCode, event);
-	}
+    @Override
+    public Object invoke(Object o, Method method, Object[] args) throws Throwable {
+      Log.i("gl", "++++++after " + method.getName() + "++++++");
+      if ("onSurfaceCreated".equals(method.getName())) {
+        mEGLConfig = (EGLConfig) args[1];
+
+        method.invoke(target, args);
+      }
+      if ("onSurfaceChanged".equals(method.getName())) {
+        //GLRecorder.init(720, 1080, mEGLConfig);
+        //GLRecorder.setRecordOutputFile("/sdcard/glrecord.mp4");
+        //GLRecorder.startRecording();
+        method.invoke(target, args);
+      }
+      if ("onDrawFrame".equals(method.getName())) {
+        frameount++;
+        //GLRecorder.beginDraw();
+        //GLES20.glViewport(0, 0, 100, 100);
+        Object result = method.invoke(target, args);
+        //GLRecorder.endDraw();
+
+        if (frameount > 1000) {
+          //GLRecorder.stopRecording();
+        }
+        return result;
+      } else {
+        Object result = method.invoke(target, args);
+        return result;
+      }
+
+    }
+  }
+
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    // TODO 自动生成的方法存�?
+    super.onCreate(savedInstanceState);
+    setTheme(android.R.style.Theme_Translucent_NoTitleBar);
+    getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    glView = new GLSurfaceView(this); // Allocate a GLSurfaceView
+
+
+    GLSurfaceView.Renderer rd = mRender;
+    InvocationHandler invocationHandler = new MyInvocationHandler(rd);
+    GLSurfaceView.Renderer rdset =
+        (GLSurfaceView.Renderer) Proxy.newProxyInstance(rd.getClass().getClassLoader(),
+            rd.getClass().getInterfaces(), invocationHandler);
+    glView.setRenderer(rdset); // Use a custom renderer
+    glView.getAlpha();
+    glView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+    this.setContentView(glView);
+
+
+  }
+
+  @Override
+  protected void onResume() {
+    // TODO
+    super.onResume();
+    glView.onResume();
+
+  }
+
+  @Override
+  protected void onDestroy() {
+    // TODO
+
+    super.onDestroy();
+  }
+
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+    Intent myIntent = new Intent();
+    myIntent.setClass(MMActivity.this, MainActivity.class);
+    myIntent.putExtra("type", "vr_mode");
+    startActivity(myIntent);
+
+    return super.onKeyDown(keyCode, event);
+  }
 
 }
